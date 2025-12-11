@@ -302,3 +302,72 @@ article {
 article .icon {
   cursor: default;
 }
+/* projects section */
+#projects {
+  position: relative;
+  margin: 0 5%;
+}
+.color-container {
+  border-color: rgb(163, 163, 163);
+  background: rgb(250, 250, 250);
+}
+.project-img {
+  border-radius: 2rem;
+  width: 90%;
+  height: 90%;
+}
+.project-title {
+  margin: 1rem;
+  color: black;
+}
+.project-btn {
+  color: black;
+  border-color: rgb(163, 163, 163);
+}
+
+/* contact section */
+#contact {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
+}
+.contact-info-upper-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+  border: rgb(53, 53, 53) 0.1rem solid;
+  background: rgb(250, 250, 250);
+  margin: 2rem auto;
+  padding: 0.5rem;
+}
+.contact-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem;
+}
+.contact-info-container p {
+  font-size: larger;
+}
+.contact-icon {
+  cursor: default;
+}
+.icon-rotate {
+  transform: rotate(180deg);
+  right: -5rem;
+  bottom: -5rem;
+}
+
+/* Footer */
+footer {
+  height: 26vh;
+  margin: 0 1rem;
+}
+footer p {
+  text-align: center;
+  margin-top: 2rem;
+  color: rgb(100, 100, 100);
+}
