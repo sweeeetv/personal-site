@@ -1,53 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="media_queries.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="media_queries.css" />
+  </head>
+  <body>
     <nav id="desktop-nav">
-        <div class="logo">Xiao G</div>
-        <div>
-            <ul class="nav-links">
-                <li><a href="#about">about</a></li>
-                <li><a href="#experience">experience</a></li>
-                <li><a href="#projects">projects</a></li>
-                <li><a href="#contact">contact</a></li>
-            </ul>
-        </div>
+      <div class="logo">Xiao G</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="#about">about</a></li>
+          <li><a href="#experience">experience</a></li>
+          <li><a href="#projects">projects</a></li>
+          <li><a href="#contact">contact</a></li>
+        </ul>
+      </div>
     </nav>
     <nav id="hamburger-nav">
-        <div class="logo">Xiao G</div>
-        <div class="hamburger-icon" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="menu-links">
-            <li><a href="#about" onclick="toggleMenu()">about</a></li>
-            <li><a href="#experience" onclick="toggleMenu()">experience</a></li>
-            <li><a href="#projects" onclick="toggleMenu()">projects</a></li>
-            <li><a href="#contact" onclick="toggleMenu()">contact</a></li>
-        </div>
+      <div class="logo">Xiao G</div>
+      <div class="hamburger-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="menu-links">
+        <li><a href="#about" onclick="toggleMenu()">about</a></li>
+        <li><a href="#experience" onclick="toggleMenu()">experience</a></li>
+        <li><a href="#projects" onclick="toggleMenu()">projects</a></li>
+        <li><a href="#contact" onclick="toggleMenu()">contact</a></li>
+      </div>
     </nav>
     <section id="profile">
-        <div class="section_pic-container">
-            <img src="./assets/profile-pic.png" alt="Hero Picture">
+      <div class="section__pic-container">
+        <img src="./assets/profile-pic.png" alt="Hero Picture" />
+      </div>
+      <div class="section__text">
+        <p class="section__text__p1">Welcome to my portfolio!</p>
+        <h1 class="title">Gao Xiao</h1>
+        <p class="section__text__p2">IT professional</p>
+        <div class="btn-container">
+          <button
+            class="btn btn-color-2"
+            onclick="window.open('./assets/resume-example.pdf')"
+          >
+            Resume
+          </button>
+          <button class="btn btn-color-1" onclick="location.href='./#contact'">
+            Contact
+          </button>
         </div>
-        <div class="section_text">
-            <p class="section_text_p1">Welcome to my portfolio!</p>
-            <h1 class="title">Gao Xiao</h1>
-            <p class="section_text_p2">IT professional</p>
-            <div class="btn-container"> 
-                <button class="btn btn-color-2" onclick="window.open('./assets/resume-example.pdf')">Resume</button>
+        <div id="socials-container">
+          <img
+            src="./assets/linkedin.png"
+            alt="My linkedin profile"
+            class="icon"
+            onclick="window.open('https://linkedin.com/')"
+          />
+          <img
+            src="./assets/github.png"
+            alt="My github profile"
+            class="icon"
+            onclick="window.open('https://github.com/')"
+          />
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <p class="section__text__p1">Get To Know Me</p>
+      <h1 class="title">About Me</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            src="./assets/about-pic.png"
+            alt="About Me Picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="./assets/experience.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <h3>experience</h3>
+              <p>
+                1 year <br />
+                professional
+              </p>
             </div>
-            <div class="btn-container"> 
-                <button class="btn btn-color-1" onclick="location.href='./#contact'">Contact</button>
+            <div class="details-container">
+              <img
+                src="./assets/education.png"
+                alt="education icon"
+                class="icon"
+              />
+              <h3>education</h3>
+              <p>
+                B.S. in Computer Science <br />
+                University of Example
+              </p>
+            </div>
+          </div>
+          <div class="text-container">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum ea
+              accusantium quibusdam itaque iure similique praesentium dolorum
+              voluptas animi, deleniti iste, aut inventore. Itaque nam quia
+              porro iusto quibusdam nostrum!
+            </p>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+    <section id="experience">
+      <p class="section__text__p1">Explore My</p>
+      <h1 class="title">Experience</h1>
+      <div class="experience-details-container">
+      <div class="about-containers">
+        <div class="details-container">
+          <h2 class="experience-sub-title">IT professional</h2>
+          <div class="article-container">
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+        <div class="details-container">
+          <h2 class="experience-sub-title">IT professional</h2>
+          <div class="article-container">
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            </article>
+            <article>
+              <img
+                src="./assets/checkmark.png"
+                alt="experience icon"
+                class="icon"
+              />
+              <div>
+                <h3>Cloud</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#projects'"
+      />
+    </section>
+    <section id="projects">
+        <p class="section__text__p1">browse my recent</p>
+        <h1 class="title">Projects</h1>
+        <div class="experience-details-container">
+            <div class="details-container color-container">
+                <div class="article-container">
+                    <img 
+                    src="./assets/project-1.png" alt="Project 1"
+                    class="project-img"
+                    />
+                </div>
             </div>
         </div>
     </section>
-   <script src="script.js"></script> 
-</body>
+    <script src="script.js"></script>
+  </body>
+</html>
