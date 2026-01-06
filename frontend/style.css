@@ -371,3 +371,18 @@ footer p {
   margin-top: 2rem;
   color: rgb(100, 100, 100);
 }
+
+#visitor-counter {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 5rem;
+  left: 5rem;
+  background-color: rgba(245, 141, 172, 0.5);
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  justify-items: center;
+  // gap: 0.5rem;
+  // margin-top: 1rem;
+}
