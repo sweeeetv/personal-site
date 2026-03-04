@@ -3,11 +3,15 @@ name: Deploy Backend
 on:
   push:
     branches: [main]
-  workflow_dispatch: # Allows you to run it manually for testing
+  workflow_dispatch:
+
+permissions: # 1. REQUIRED FOR OIDC
+  id-token: write
+  contents: read
 
 env:
-  AZURE_FUNCTIONAPP_NAME: "weirdcloud-db-counter-api" # Replace with your actual App name
-  PYTHON_VERSION: "3.13"
+  AZURE_FUNCTIONAPP_NAME: "weirdcloud-visiter-counter-api"
+  PYTHON_VERSION: "3.11" # Recommended for Flex Consumption for stability
 
 jobs:
   build-and-deploy:
@@ -16,25 +20,21 @@ jobs:
       - name: "Checkout GitHub Action"
         uses: actions/checkout@v4
 
-      - name: "Setup Python ${{ env.PYTHON_VERSION }}"
+      - name: "Login via Azure (OIDC)" # 2. UPDATED LOGIN
+        uses: azure/login@v2 # Use v2 for OIDC support
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: "Setup Python"
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: "Install Dependencies"
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
-
-      - name: "Login via Azure CLI"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: "Deploy to Azure Functions"
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: "."
-          # We use remote-build so Azure handles the final setup on their end
           remote-build: true
