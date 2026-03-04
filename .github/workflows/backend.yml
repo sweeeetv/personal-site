@@ -11,7 +11,7 @@ permissions: # 1. REQUIRED FOR OIDC
 
 env:
   AZURE_FUNCTIONAPP_NAME: "weirdcloud-visiter-counter-api"
-  PYTHON_VERSION: "3.11" # Recommended for Flex Consumption for stability
+  PYTHON_VERSION: "3.13" # Recommended for Flex Consumption for stability
 
 jobs:
   build-and-deploy:
