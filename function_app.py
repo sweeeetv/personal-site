@@ -10,8 +10,8 @@ from azure.core.exceptions import ResourceNotFoundError
 table_client = TableClient.from_connection_string(conn_str=connection_string, table_name="visiter-counter-table")
 app = func.FunctionApp()
 
-@app.route(route="GetResumeCounter", auth_level=func.AuthLevel.ANONYMOUS)
-def GetResumeCounter(req: func.HttpRequest) -> func.HttpResponse:
+@app.route(route="getresumecounter", auth_level=func.AuthLevel.ANONYMOUS)
+def getresumecounter(req: func.HttpRequest) -> func.HttpResponse:
     
     # 2. Get the specific row (PartitionKey and RowKey are the 'Table' way)
     # We assume you have a row where PartitionKey="visitor_stats" and RowKey="1"
