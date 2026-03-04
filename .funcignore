@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# GitHub / CI
+.github/
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Local dev environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Terraform / infra experiments
+infra/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python build artifacts
+dist/
+build/
+
+# Tests
+tests/
