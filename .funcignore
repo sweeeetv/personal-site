@@ -1,0 +1,15 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# GitHub / CI
+.github/
+
+# Editor / IDE
+.vscode/
+.idea/
+
+
+# Terraform / infra experiments
+infra/
