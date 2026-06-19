@@ -1,0 +1,16 @@
+# Terraform working directory
+.terraform/
+
+# Local state (temporary for now)
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Mac
+.DS_Store
