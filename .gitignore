@@ -1,0 +1,49 @@
+# Terraform working directory
+.terraform/
+
+# Local state (temporary for now)
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+.vscode/
+*.code-workspace
+
+# --- Local Environment / Secrets ---
+.env
+.env.local
+.azure/
+
+*.log
+npm-debug.log*
+
+
+# --- SECURITY ---
+# Never commit your connection strings or secrets
+local.settings.json
+
+# --- PYTHON ---
+# Ignore the virtual environment
+.venv/
+venv/
+env/
+# Ignore compiled bytecode (junk files Python creates)
+**/__pycache__/
+*.py[cod]
+
+# --- AZURE FUNCTIONS ---
+# Ignore internal Azure metadata
+.python_packages/
+bin/
+obj/
