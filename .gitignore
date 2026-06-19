@@ -1,0 +1,14 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+
+.vscode/
+*.code-workspace
+
+# --- Local Environment / Secrets ---
+.env
+.env.local
+.azure/
+
+*.log
+npm-debug.log*
