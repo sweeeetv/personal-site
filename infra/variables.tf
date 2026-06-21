@@ -1,5 +1,5 @@
 variable "project" {
-  default = "cloud_resume"
+  default = "resume"
 }
 
 variable "location" {
@@ -8,14 +8,15 @@ variable "location" {
 variable "tags" {
   default = {
     project = "cloud_resume"
+    managed_by = "terraform"
   }
 }
-variable "visiter_counter_api_name" {
-  default = "weirdcloud-visiter-counter-api"
+variable "vc_api_name" {
+  default = "weirdcloud-visitor-counter-api"
 }
 
-variable "github_token" {
-  description = "My GitHub Personal Access Token"
-  type        = string
-  sensitive   = true # This hides the token from appearing in your terminal logs
-}
+# variable "github_token" {
+#   description = "My GitHub Personal Access Token"
+#   type        = string
+#   sensitive   = true #security
+# }
