@@ -18,7 +18,7 @@ resource "azurerm_storage_account_static_website" "resume" {
 }
 
 resource "azurerm_storage_account" "function_storage" {
-  name                     = "resumevisitorcountersa"
+  name                     = "resumevisitorcounterapi"
   resource_group_name      = azurerm_resource_group.resume.name
   location                 = azurerm_resource_group.resume.location
   account_tier             = "Standard"

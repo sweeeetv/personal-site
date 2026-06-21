@@ -8,14 +8,14 @@ terraform {
       # 2. Use the latest major version (4.x)
       version = "~> 4.0"
     } 
-    # github = {
-    #   source = "integrations/github"
-    #   version = "~> 6.0"
-    # }
-    # cloudflare = {
-    #   source = "cloudflare/cloudflare"
-    #   version = "~> 4.0"
-    # }
+    github = {
+      source = "integrations/github"
+      version = "~> 6.0"
+    }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
   }
   #store the tfstate files in my blob storage that provisioned for this state files.
   backend "azurerm" {
@@ -29,9 +29,8 @@ terraform {
 provider "azurerm" {
   subscription_id = "bcd4fe40-938d-48e2-bea9-6425a552c4ab"
   features {
-  }//required by the provider but can be empty for now.
+  }
 }
-
 # provider "github" {
 #   owner = "sweeeetv"
 #   token = var.github_token 
