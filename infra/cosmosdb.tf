@@ -24,9 +24,10 @@ resource "azurerm_cosmosdb_account" "counter_db" {
   tags = var.tags
 }
 resource "azurerm_cosmosdb_table" "counter_table" {
-  name                = "visiter-counter-table"
+  name                = "visitor-counter-table"
   resource_group_name = azurerm_resource_group.resume.name
   account_name        = azurerm_cosmosdb_account.counter_db.name
   #throughput not necessary for serverless accounts, if needed, choose a throughput value below:
   #throughput          = 400
 }
+//define the contents of the db table in the python code, no need to set up here.

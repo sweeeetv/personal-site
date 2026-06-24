@@ -25,13 +25,13 @@ resource "azurerm_function_app_flex_consumption" "visitor_counter_api" {
   storage_container_type      = "blobContainer"
   //a public endpoint for the function app to access the blob container, this is required for the flex consumption plan to allow the function app to read/write code and state from the blob storage.
   //the container is private, the access key is needed for authentication, which is done in the next line with storage_authentication_type and storage_access_key.
-  storage_container_endpoint  = "${azurerm_storage_account.function_storage.primary_blob_endpoint}${azurerm_storage_container.visitor_counter_func_blob_container.name}/"
+  storage_container_endpoint  = "${azurerm_storage_account.function_storage.primary_blob_endpoint}${azurerm_storage_container.visitor_counter_func_blob_container.name}"
   storage_authentication_type = "StorageAccountConnectionString"
   storage_access_key          = azurerm_storage_account.function_storage.primary_access_key
 
   # Runtime python 3.13
   runtime_name    = "python"
-  runtime_version = "3.13"
+  runtime_version = "3.13" //could be too high change back to 3.12.
 
   # Scale & memory max 100, memory 512
   maximum_instance_count = 2
@@ -47,11 +47,15 @@ resource "azurerm_function_app_flex_consumption" "visitor_counter_api" {
     // a visitor's browser loads HTML, which has JS that calls the function app api, the browser includes a Origin: https://pp.weirdcloud.dev header on that request automatically. The api replies back the same origin indicating it is allowed. The browser then allow the JS to process the reply.
     cors {
       allowed_origins = [
-        "https://${azurerm_storage_account.frontend.primary_web_host}",
         "https://pp.weirdcloud.dev", 
         "http://localhost:5500"
       ]
     }
+  }
+  lifecycle {
+    ignore_changes = [
+      site_config[0].cors
+    ]
   }
 }
 #APM for the app, captures request traces, response times, exceptions, dependency calls and custom telemetry.

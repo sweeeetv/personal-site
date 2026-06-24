@@ -11,7 +11,7 @@ async function updateVisitorCount() {
   try {
     console.log("start the counter");
     const response = await fetch(
-      "https://weirdcloud-visiter-counter-api.azurewebsites.net/api/getresumecounter",
+      "https://weirdcloud-visitor-counter-api.azurewebsites.net/api/getresumecounter",
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
