@@ -1,16 +1,16 @@
 import azure.functions as func
 import os
 import json
-from azure.data.tables import TableClient # TableClient is the SDK for Azure Table Storage, which is the API we're using in Cosmos DB to store the visitor count data.
-connection_string = os.environ["COSMOS_DB_CONNECTION_STRING"] # This connection string is set in the function app settings in the infra/api.tf file, and it includes the endpoint and access key for the Cosmos DB account, allowing the function app to connect to the Cosmos DB Table API.
 from azure.core.exceptions import ResourceNotFoundError
+from azure.data.tables import TableClient # <--- Changed this line
+connection_string = os.environ["COSMOS_DB_CONNECTION_STRING"]
     
     # 1. Connect using the Table API Specialist
     # This automatically looks for 'TableEndpoint' in your string!
-table_client = TableClient.from_connection_string(conn_str=connection_string, table_name="visiter-counter-table")
+table_client = TableClient.from_connection_string(conn_str=connection_string, table_name="visitor-counter-table")
 app = func.FunctionApp()
 
-@app.route(route="getresumecounter", methods=["GET", "OPTIONS"],auth_level=func.AuthLevel.ANONYMOUS)
+@app.route(route="getresumecounter", auth_level=func.AuthLevel.ANONYMOUS)
 def getresumecounter(req: func.HttpRequest) -> func.HttpResponse:
     
     # 2. Get the specific row (PartitionKey and RowKey are the 'Table' way)
@@ -39,7 +39,5 @@ def getresumecounter(req: func.HttpRequest) -> func.HttpResponse:
         mimetype="application/json",
         status_code=200
     )
-
-
 
    
