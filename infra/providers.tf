@@ -16,6 +16,11 @@ terraform {
       source = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
+    //for time_sleep in dns binding section
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.9"
+    }
   }
   #store the tfstate files in my blob storage that provisioned for this state files.
   backend "azurerm" {
@@ -36,6 +41,8 @@ provider "azurerm" {
 #   token = var.github_token 
 # }
 
-# provider "cloudflare" {
-#   api_token = var.cloudflare_api_token
-# }
+
+//for my domain name, I use Cloudflare as my DNS provider. So I need to configure the Cloudflare provider to manage my DNS records.
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token//
+}

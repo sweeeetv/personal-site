@@ -14,6 +14,13 @@ variable "tags" {
 variable "vc_api_name" {
   default = "weirdcloud-visitor-counter-api"
 }
+variable "cloudflare_api_token" {
+  type = string
+  sensitive =true //hide, also ttl of the token is about 5 days.
+}
+
+
+
 
 # variable "github_token" {
 #   description = "My GitHub Personal Access Token"
