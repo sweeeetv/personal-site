@@ -3,25 +3,33 @@
 data "cloudflare_zone" "domain" {
   name = "weirdcloud.dev"
 }
-//frontend: root domain
-resource "cloudflare_record" "test" {
+
+#-------------------- root, www -------------------------#
+#create root domain
+resource "cloudflare_record" "root" {
   zone_id = data.cloudflare_zone.domain.id
-  name    = "test"
+  name    = "@"
   type    = "CNAME"  
   content = azurerm_storage_account.frontend.primary_web_host
-  proxied = true //if false, Cloudflare acts strictly as a routing table. It returns the Azure Storage FQDN directly to the client. The client connects directly to Azure.
+  proxied = true 
+
+  //proxied = ?
+  //false, Cloudflare acts strictly as a routing table. It returns the Azure Storage FQDN directly to the client. The client connects directly to Azure.
   //true -> Cloudflare intercepts the traffic. It returns Cloudflare's own Anycast IP addresses to the client, terminates the SSL connection at the edge, applies caching/WAF rules, and then proxies the request to your Azure backend.
 }
+//create record in cf
+resource "cloudflare_record" "www"{
+  zone_id = data.cloudflare_zone.domain.id
+  name = "www"
+  type = "CNAME"
+  content = azurerm_storage_account.frontend.primary_web_host
+  proxied =true 
+}
 
-# //www
-# resource "cloudflare_record" "www"{
-#   zone_id = data.cloudflare_zone.domain.id
-#   name = "www"
-#   type = "CNAME"
-#   content = azurerm_storage_account.resume.primary_web_host
-#   proxied =true 
-# }
-//api
+
+
+#-------------------- api -------------------------#
+//create record in cf
 resource "cloudflare_record" "api"{
   zone_id = data.cloudflare_zone.domain.id
   name = "pp"
@@ -29,22 +37,8 @@ resource "cloudflare_record" "api"{
   content = azurerm_function_app_flex_consumption.visitor_counter_api.default_hostname //fqdn -> [myaccount.z13.web.core.windows.net.], dns does not work at http level, no shema or url
   proxied = true
 }
-
-//not needed here
-# # Force HTTPS to ALL of weirdcloud.dev, zone-wide.
-# resource "cloudflare_zone_settings_override" "settings" {
-#   zone_id = data.cloudflare_zone.domain.id
-#   settings {
-#     ssl            = "full" // 
-#     always_use_https = "on" 
-#     min_tls_version  = "1.2"
-#   }
-# }
-
-////////////////////////////custom domain binding////////////////////////////////////
-//azure's asuid method, TXT, newer than asverify CNAME method: separates the concepts of Routing and Proof of Ownership, instead use a cryptographic string (the custom_domain_verification_id) that acts as a password.
-
 #The hidden TXT record to prove ownership to Azure
+//azure's asuid method, TXT, newer than asverify CNAME method: separates the concepts of Routing and Proof of Ownership, instead use a cryptographic string (the custom_domain_verification_id) that acts as a password.
 resource "cloudflare_record" "api_verification" {
   zone_id = data.cloudflare_zone.domain.id
   name    = "asuid.pp" #"asuid." prefix
@@ -52,15 +46,7 @@ resource "cloudflare_record" "api_verification" {
   content = azurerm_function_app_flex_consumption.visitor_counter_api.custom_domain_verification_id // this is a token string that azure desgined this for custom domain verification, does not change over time
   proxied = false # TXT records cannot be proxied
 }
-
-
-//this is so azure does not query the asuid.app TXT record before cloudflare set it up.
-resource "time_sleep" "wait_for_dns" {
-  depends_on = [cloudflare_record.api_verification]
-  create_duration = "30s"
-}
-
-#The Azure Custom Domain Binding
+//custom domain binding
 resource "azurerm_app_service_custom_hostname_binding" "api_binding" {
   hostname            = "pp.weirdcloud.dev"
   app_service_name    = azurerm_function_app_flex_consumption.visitor_counter_api.name
@@ -72,3 +58,56 @@ resource "azurerm_app_service_custom_hostname_binding" "api_binding" {
     cloudflare_record.api //needs the CNAME to exist
     ] 
 }
+//this is so azure does not query the asuid.app TXT record before cloudflare set it up.
+resource "time_sleep" "wait_for_dns" {
+  depends_on = [cloudflare_record.api_verification]
+  create_duration = "30s"
+}
+
+
+
+
+
+
+
+
+
+#--------------------------------------------------------------------#
+//not needed here
+# # Force HTTPS to ALL of weirdcloud.dev, zone-wide.
+# resource "cloudflare_zone_settings_override" "settings" {
+#   zone_id = data.cloudflare_zone.domain.id
+#   settings {
+#     ssl            = "full" // 
+#     always_use_https = "on" 
+#     min_tls_version  = "1.2"
+#   }
+# }
+
+
+
+
+
+//since anyone could bind a custom domain to the static web blob, add restrictions to blob access to from cf ip ranges only:
+# resource "azurerm_storage_account_network_rules" "resume" {
+#   storage_account_id = azurerm_storage_account.resume.id
+#   default_action     = "Deny"
+#   ip_rules           = [
+#     # Cloudflare IPv4 ranges
+#     "173.245.48.0/20",
+#     "103.21.244.0/22",
+#     "103.22.200.0/22",
+#     "103.31.4.0/22",
+#     "141.101.64.0/18",
+#     "108.162.192.0/18",
+#     "190.93.240.0/20",
+#     "188.114.96.0/20",
+#     "197.234.240.0/22",
+#     "198.41.128.0/17",
+#     "162.158.0.0/15",
+#     "104.16.0.0/13",
+#     "104.24.0.0/14",
+#     "172.64.0.0/13",
+#     "131.0.72.0/22"
+#   ]
+# }
