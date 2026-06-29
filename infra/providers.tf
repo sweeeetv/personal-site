@@ -1,11 +1,10 @@
 terraform {
-  // 1. Use a recent Terraform version (1.10+)
+  //recent Terraform version (1.10+)
   required_version = ">= 1.10.0"
   required_providers {
-    //azurerm provider is required to manage Azure resources
     azurerm = {
       source = "hashicorp/azurerm"
-      # 2. Use the latest major version (4.x)
+      #latest major version (4.x)
       version = "~> 4.0"
     } 
     github = {
@@ -21,28 +20,32 @@ terraform {
       source  = "hashicorp/time"
       version = "~> 0.9"
     }
+    //for this project -> app registrations
+    azuread = { //azure ad
+      source  = "hashicorp/azuread"
+      version = "~> 2.0"
+    }
   }
-  #store the tfstate files in my blob storage that provisioned for this state files.
+  #store the tfstate files in my blob storage provisioned for tf state files.
   backend "azurerm" {
     resource_group_name  = "rg-terraform-state"
     storage_account_name = "tfstatepersonalxgao"
     container_name       = "tfstate"
-    key                  = "resume.terraform.tfstate"//the name of the tfstate file in the blob storage.
+    key                  = "resume.terraform.tfstate"//the name of the tfstate file in the blob.
   }
 } 
-//provider - when you/terraform need to check or change real Azure resources, call the Azure API, authenticated against this subscription
+//terraform calls Azure API, authenticates against this subscription
 provider "azurerm" {
-  subscription_id = "bcd4fe40-938d-48e2-bea9-6425a552c4ab"
+  subscription_id = var.subscription_id
   features {
   }
 }
-# provider "github" {
-#   owner = "sweeeetv"
-#   token = var.github_token 
-# }
+provider "github" {
+  owner = var.github_org
+  token = var.github_token 
+}
 
-
-//for my domain name, I use Cloudflare as my DNS provider. So I need to configure the Cloudflare provider to manage my DNS records.
+//for my domain name, I use Cloudflare as my DNS provider.
 provider "cloudflare" {
-  api_token = var.cloudflare_api_token//
+  api_token = var.cloudflare_api_token
 }

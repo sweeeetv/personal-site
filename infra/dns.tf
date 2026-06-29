@@ -111,3 +111,4 @@ resource "time_sleep" "wait_for_dns" {
 #     "131.0.72.0/22"
 #   ]
 # }
+//inconvenience for testing — if you curl https://youraccount.z13.web.core.windows.net from your mac terminal would return 403. 
